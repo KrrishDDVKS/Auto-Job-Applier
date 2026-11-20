@@ -39,6 +39,14 @@ except Exception as e:
     with open(f"{folder}/jobs_{data['First name']}_{data['Last name']}.csv", "w", newline="", encoding="utf-8") as file:
         print(f"Creating new jobs_{data['First name']}_{data['Last name']}.csv file to save job links.")
         pass
+print("Creating skills list for job title")
+jobtitle="AI/ML Engineer"               # ----------------> Job title to search for
+skills_response = generate_skills(jobtitle)
+all_skills = (
+                skills_response.technical_skills
+                + skills_response.tools_and_frameworks
+                + skills_response.methodologies
+            )
         
 # Configure Chrome
 options = webdriver.ChromeOptions()
@@ -92,7 +100,6 @@ try:
 
         # Step 4: Search for AI/ML Engineer
         search_box.clear()
-        jobtitle="AI/ML Engineer"               # ----------------> Job title to search for
         search_box.send_keys(jobtitle)
         search_box.send_keys(Keys.ENTER)
 
@@ -158,12 +165,7 @@ try:
                     print("Extracting job description and skills...")
 
                     job_description = extract_job_description(driver)
-                    skills_response = generate_skills(jobtitle)
-                    all_skills = (
-                                    skills_response.technical_skills
-                                    + skills_response.tools_and_frameworks
-                                    + skills_response.methodologies
-                                )
+                    
                     
                     print('Extracting skills from job description and resume...')
                     
