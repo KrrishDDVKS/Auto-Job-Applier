@@ -47,6 +47,10 @@ all_skills = (
                 + skills_response.tools_and_frameworks
                 + skills_response.methodologies
             )
+resume_skills = extract_skills(
+                        resume_text,
+                        all_skills
+                    )
         
 # Configure Chrome
 options = webdriver.ChromeOptions()
@@ -173,11 +177,6 @@ try:
                     job_description,
                     all_skills
                         )
-    
-                    resume_skills = extract_skills(
-                        resume_text,
-                        all_skills
-                    )
     
                     print("Finding match between job description skills and resume skills...")
                     # Calculate score
